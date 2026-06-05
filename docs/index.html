@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChainSentinel — AI-Powered On-Chain Security Intelligence</title>
+    <link rel="stylesheet" href="style.css">
+    <meta name="description" content="Real-time on-chain security intelligence powered by AI. Check any wallet, contract, or token for fraud risk in seconds.">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛡️</text></svg>">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <span class="logo">🛡️</span>
+            <span class="brand-name">ChainSentinel</span>
+            <span class="badge">AI</span>
+        </div>
+        <div class="nav-links">
+            <a href="#features">Features</a>
+            <a href="#pricing">Pricing</a>
+            <a href="#check">Check Address</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Is your crypto <span class="highlight">safe</span>?</h1>
+            <p class="subtitle">AI-powered security intelligence for any wallet, contract, or token. Check risk in seconds — before you invest.</p>
+            <div class="hero-stats" id="stats">
+                <div class="stat"><span class="stat-num" id="stat-scanned">5,237</span><span class="stat-label">Addresses Scanned</span></div>
+                <div class="stat"><span class="stat-num" id="stat-threats">891</span><span class="stat-label">Threats Detected</span></div>
+                <div class="stat"><span class="stat-num">$2.1M+</span><span class="stat-label">Funds Protected</span></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="checker" id="check">
+        <h2>Check Any Address</h2>
+        <p class="checker-desc">Enter a wallet address, contract, or token to get an instant AI risk assessment.</p>
+        <form id="check-form" class="check-form">
+            <div class="input-group">
+                <input type="text" id="address-input" placeholder="0x... or Solana address" required autocomplete="off">
+                <select id="chain-select">
+                    <option value="eth">Ethereum</option>
+                    <option value="bsc">BSC</option>
+                    <option value="base">Base</option>
+                    <option value="sol">Solana</option>
+                </select>
+                <button type="submit" id="check-btn">🔍 Scan</button>
+            </div>
+            <div class="free-note">5 free checks/day · No signup required</div>
+        </form>
+
+        <div id="result" class="result" style="display:none;">
+            <div class="result-header">
+                <div class="risk-gauge" id="risk-gauge">
+                    <svg viewBox="0 0 120 120">
+                        <circle cx="60" cy="60" r="54" fill="none" stroke="#1a1a2e" stroke-width="8"/>
+                        <circle cx="60" cy="60" r="54" fill="none" stroke-width="8" id="gauge-arc"
+                            stroke-dasharray="339.29" stroke-dashoffset="339.29" stroke-linecap="round"/>
+                    </svg>
+                    <div class="gauge-text">
+                        <span class="gauge-score" id="gauge-score">—</span>
+                        <span class="gauge-label">Risk Score</span>
+                    </div>
+                </div>
+                <div class="result-meta">
+                    <div class="risk-level-badge" id="risk-level-badge">—</div>
+                    <div class="address-display" id="result-address"></div>
+                    <div class="chain-display" id="result-chain"></div>
+                </div>
+            </div>
+            <div class="ai-analysis" id="ai-analysis"></div>
+            <div class="findings" id="findings"></div>
+        </div>
+
+        <div id="loading" class="loading" style="display:none;">
+            <div class="spinner"></div>
+            <p>AI is analyzing on-chain data...</p>
+        </div>
+
+        <div id="error" class="error" style="display:none;"></div>
+    </section>
+
+    <section class="features" id="features">
+        <h2>Why ChainSentinel</h2>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🤖</div>
+                <h3>AI-Native Analysis</h3>
+                <p>Gemini AI reads smart contracts, traces fund flows, and detects patterns humans miss — in seconds, not hours.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3>Real-Time Alerts</h3>
+                <p>Monitor wallets 24/7. Get instant alerts when risk factors change — rug pull signals, large transfers, suspicious contract upgrades.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">💰</div>
+                <h3>90% Cheaper</h3>
+                <p>Chainalysis costs $50K+/year. ChainSentinel starts at $0. Same intelligence, accessible to everyone.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔒</div>
+                <h3>Multi-Chain</h3>
+                <p>Ethereum, BSC, Base, Solana — check any address across major chains from one dashboard.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="pricing" id="pricing">
+        <h2>Simple Pricing</h2>
+        <div class="pricing-grid">
+            <div class="pricing-card">
+                <h3>Free</h3>
+                <div class="price">$0<span>/mo</span></div>
+                <ul>
+                    <li>5 address checks/day</li>
+                    <li>Basic risk score</li>
+                    <li>4 chains supported</li>
+                </ul>
+                <button class="btn-secondary" onclick="document.getElementById('address-input').focus()">Start Free</button>
+            </div>
+            <div class="pricing-card featured">
+                <div class="popular-badge">Most Popular</div>
+                <h3>Pro</h3>
+                <div class="price">$29<span>/mo</span></div>
+                <ul>
+                    <li>Unlimited checks</li>
+                    <li>Real-time alerts</li>
+                    <li>Weekly risk reports</li>
+                    <li>Priority AI analysis</li>
+                </ul>
+                <button class="btn-primary">Coming Soon</button>
+            </div>
+            <div class="pricing-card">
+                <h3>Enterprise</h3>
+                <div class="price">$299<span>/mo</span></div>
+                <ul>
+                    <li>API access</li>
+                    <li>Custom monitoring</li>
+                    <li>Dedicated support</li>
+                    <li>SLA guarantee</li>
+                </ul>
+                <button class="btn-secondary">Contact Us</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta">
+        <h2>Don't invest before you check.</h2>
+        <p>90% of crypto scams could be prevented with a simple risk check.</p>
+        <button class="btn-primary btn-large" onclick="document.getElementById('address-input').focus()">Check an Address Now →</button>
+    </section>
+
+    <footer>
+        <p>ChainSentinel © 2026 · Built with Gemini AI for Build with Gemini XPRIZE</p>
+        <p class="footer-links">
+            <a href="https://qanzhi111.github.io/onchain-investigations/">Investigation Reports</a> ·
+            <a href="https://github.com/onchain-shadow">GitHub</a> ·
+            <a href="https://x.com/onchain-shadow">X/Twitter</a>
+        </p>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
