@@ -1,7 +1,7 @@
 // ChainSentinel — Frontend App Logic
 
-// API backend — update after HF Spaces deployment
-const API_BASE = 'https://chainsentinel-api.hf.space';
+// API backend on Hugging Face Spaces
+const API_BASE = 'https://789kaitongkouzi-chainsentinel-api.hf.space';
 
 const form = document.getElementById('check-form');
 const addressInput = document.getElementById('address-input');
