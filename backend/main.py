@@ -11,8 +11,6 @@ from typing import Optional
 
 from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.staticfiles import StaticFiles
-from fastapi.responses import FileResponse
 from pydantic import BaseModel
 
 from risk_engine import RiskEngine
@@ -63,7 +61,7 @@ class AlertSubscription(BaseModel):
 
 @app.get("/")
 async def root():
-    return FileResponse("frontend/index.html")
+    return {"service": "ChainSentinel", "version": "1.0.0", "status": "running", "docs": "/docs"}
 
 
 @app.get("/api/v1/health")
@@ -97,7 +95,6 @@ async def check_address_get(address: str, chain: str = Query(default="eth")):
 @app.get("/api/v1/trending-risks")
 async def trending_risks(chain: str = Query(default="eth"), limit: int = Query(default=10)):
     """Get trending risk alerts from recent scans."""
-    # In production, this queries a database
     return {
         "alerts": [
             {
@@ -118,7 +115,7 @@ async def subscribe_alerts(body: AlertSubscription):
     return {
         "status": "subscribed",
         "email": body.email,
-        "address_count": len(body.addresses),
+        "address_count": len(body.addresss),
         "message": "You will receive alerts when risk factors are detected.",
     }
 
@@ -135,10 +132,6 @@ async def stats():
     }
 
 
-# Mount static files last
-app.mount("/static", StaticFiles(directory="frontend"), name="static")
-
-
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run(app, host="0.0.0.0", port=7860)
