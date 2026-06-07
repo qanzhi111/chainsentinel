@@ -19,6 +19,7 @@
             <a href="#features">Features</a>
             <a href="#pricing">Pricing</a>
             <a href="#check">Check Address</a>
+            <a href="#activate" class="nav-cta">Activate Pro</a>
         </div>
     </nav>
 
@@ -48,7 +49,10 @@
                 </select>
                 <button type="submit" id="check-btn">🔍 Scan</button>
             </div>
-            <div class="free-note">5 free checks/day · No signup required</div>
+            <div class="input-row">
+                <input type="text" id="api-key-input" placeholder="API Key (optional — Pro gets AI analysis)" autocomplete="off">
+            </div>
+            <div class="free-note">Free: 3 basic checks/day · <a href="#pricing">Pro: unlimited AI analysis</a></div>
         </form>
 
         <div id="result" class="result" style="display:none;">
@@ -66,12 +70,16 @@
                 </div>
                 <div class="result-meta">
                     <div class="risk-level-badge" id="risk-level-badge">—</div>
+                    <div class="tier-badge" id="tier-badge"></div>
                     <div class="address-display" id="result-address"></div>
                     <div class="chain-display" id="result-chain"></div>
                 </div>
             </div>
             <div class="ai-analysis" id="ai-analysis"></div>
             <div class="findings" id="findings"></div>
+            <div id="upgrade-cta" class="upgrade-cta" style="display:none;">
+                <p>🔒 Want AI-powered deep analysis? <a href="#pricing">Upgrade to Pro →</a></p>
+            </div>
         </div>
 
         <div id="loading" class="loading" style="display:none;">
@@ -97,8 +105,8 @@
             </div>
             <div class="feature-card">
                 <div class="feature-icon">💰</div>
-                <h3>90% Cheaper</h3>
-                <p>Chainalysis costs $50K+/year. ChainSentinel starts at $0. Same intelligence, accessible to everyone.</p>
+                <h3>Pay with Crypto</h3>
+                <p>No credit card needed. Send ETH or USDC directly — your API key is activated instantly, fully automated.</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon">🔒</div>
@@ -110,13 +118,14 @@
 
     <section class="pricing" id="pricing">
         <h2>Simple Pricing</h2>
+        <p class="pricing-subtitle">Pay with crypto. No signup. No credit card. Fully automated.</p>
         <div class="pricing-grid">
             <div class="pricing-card">
                 <h3>Free</h3>
                 <div class="price">$0<span>/mo</span></div>
                 <ul>
-                    <li>5 address checks/day</li>
-                    <li>Basic risk score</li>
+                    <li>3 address checks/day</li>
+                    <li>Rule-based risk score</li>
                     <li>4 chains supported</li>
                 </ul>
                 <button class="btn-secondary" onclick="document.getElementById('address-input').focus()">Start Free</button>
@@ -126,23 +135,79 @@
                 <h3>Pro</h3>
                 <div class="price">$29<span>/mo</span></div>
                 <ul>
-                    <li>Unlimited checks</li>
+                    <li>Unlimited AI checks</li>
                     <li>Real-time alerts</li>
-                    <li>Weekly risk reports</li>
-                    <li>Priority AI analysis</li>
+                    <li>Full risk findings</li>
+                    <li>Priority API access</li>
+                    <li>Pay with ETH or USDC</li>
                 </ul>
-                <button class="btn-primary">Coming Soon</button>
+                <button class="btn-primary" onclick="document.getElementById('activate').scrollIntoView({behavior:'smooth'})">Activate Pro →</button>
             </div>
             <div class="pricing-card">
-                <h3>Enterprise</h3>
-                <div class="price">$299<span>/mo</span></div>
+                <h3>Single Check</h3>
+                <div class="price">$0.05<span>/check</span></div>
                 <ul>
-                    <li>API access</li>
-                    <li>Custom monitoring</li>
-                    <li>Dedicated support</li>
-                    <li>SLA guarantee</li>
+                    <li>One AI deep analysis</li>
+                    <li>Detailed risk report</li>
+                    <li>Full findings list</li>
+                    <li>No commitment</li>
                 </ul>
-                <button class="btn-secondary">Contact Us</button>
+                <button class="btn-secondary" onclick="document.getElementById('activate').scrollIntoView({behavior:'smooth'})">Buy a Check</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="activate" id="activate">
+        <h2>Activate Your API Key</h2>
+        <p class="activate-desc">Send payment, then verify your transaction. Your API key is issued instantly.</p>
+        
+        <div class="activate-steps">
+            <div class="step">
+                <div class="step-num">1</div>
+                <div class="step-content">
+                    <h4>Send Payment</h4>
+                    <p>Send the required amount to:</p>
+                    <div class="wallet-box">
+                        <code id="wallet-address">0x801B27e126d91D99A70cd31ffc8BC867B329023D</code>
+                        <button class="copy-btn" onclick="copyWallet()">📋</button>
+                    </div>
+                    <div class="payment-amounts">
+                        <div class="amount-option">
+                            <span class="amount-label">Pro ($29/mo)</span>
+                            <span class="amount-value">≥ 0.01 ETH or ≥ 25 USDC</span>
+                        </div>
+                        <div class="amount-option">
+                            <span class="amount-label">Single ($0.05)</span>
+                            <span class="amount-value">≥ 0.00002 ETH or ≥ 0.04 USDC</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-num">2</div>
+                <div class="step-content">
+                    <h4>Verify Transaction</h4>
+                    <form id="verify-form" class="verify-form">
+                        <input type="text" id="tx-hash-input" placeholder="Transaction hash (0x...)" required autocomplete="off">
+                        <select id="payment-chain">
+                            <option value="eth">Ethereum</option>
+                            <option value="bsc">BSC</option>
+                            <option value="base">Base</option>
+                        </select>
+                        <select id="payment-plan">
+                            <option value="pro">Pro — $29/month</option>
+                            <option value="single">Single Check — $0.05</option>
+                        </select>
+                        <input type="email" id="email-input" placeholder="Email (for alerts)" autocomplete="off">
+                        <button type="submit" id="verify-btn">🔑 Verify & Get API Key</button>
+                    </form>
+                    <div id="verify-result" class="verify-result" style="display:none;"></div>
+                    <div id="verify-loading" class="loading" style="display:none;">
+                        <div class="spinner"></div>
+                        <p>Verifying on-chain payment...</p>
+                    </div>
+                    <div id="verify-error" class="error" style="display:none;"></div>
+                </div>
             </div>
         </div>
     </section>
@@ -157,8 +222,9 @@
         <p>ChainSentinel © 2026 · Built with Gemini AI for Build with Gemini XPRIZE</p>
         <p class="footer-links">
             <a href="https://qanzhi111.github.io/onchain-investigations/">Investigation Reports</a> ·
-            <a href="https://github.com/onchain-shadow">GitHub</a> ·
-            <a href="https://x.com/onchain-shadow">X/Twitter</a>
+            <a href="https://github.com/qanzhi111/chainsentinel">GitHub</a> ·
+            <a href="https://x.com/onchain-shadow">X/Twitter</a> ·
+            <a href="/docs">API Docs</a>
         </p>
     </footer>
 
